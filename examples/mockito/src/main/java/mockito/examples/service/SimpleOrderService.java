@@ -6,7 +6,6 @@ import mockito.examples.model.CartItem;
 import mockito.examples.model.Customer;
 import mockito.examples.model.Order;
 import mockito.examples.model.OrderItem;
-import mockito.examples.model.Product;
 
 /**
  * @author Ted Vinke
@@ -21,7 +20,7 @@ public class SimpleOrderService implements OrderService {
 
 	@Override
 	public Order createOrder(long customerId, List<CartItem> items)
-			throws CustomerNotFoundException, OutOfStockException {
+			throws CustomerNotFoundException {
 
 		Customer customer = customerService.findCustomerById(customerId);
 		if (customer == null) {
@@ -31,12 +30,11 @@ public class SimpleOrderService implements OrderService {
 		Order order = new Order(customer);
 		for (CartItem item : items) {
 
-			Product product = item.getProduct();
 			int quantity = item.getQuantity();
-			double price = product.getPrice();
+			double price = item.getProduct().getPrice();
 			double totalPrice = price * quantity;
 
-			order.addItem(new OrderItem(product, quantity, totalPrice));
+			order.addItem(new OrderItem(item.getProduct(), quantity, totalPrice));
 		}
 
 		order.setBilling(customer.getWorkAddress());
@@ -44,5 +42,4 @@ public class SimpleOrderService implements OrderService {
 
 		return order;
 	}
-
 }

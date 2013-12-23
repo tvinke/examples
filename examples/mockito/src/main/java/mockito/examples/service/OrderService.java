@@ -11,6 +11,6 @@ import mockito.examples.model.Order;
 public interface OrderService {
 
 	Order createOrder(long customerId, List<CartItem> items)
-			throws CustomerNotFoundException, OutOfStockException;
+			throws CustomerNotFoundException;
 
 }
