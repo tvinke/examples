@@ -26,6 +26,5 @@
 
 	<modules>
 		<module>mockito</module>
-		<module>di-examples</module>
 	</modules>
 </project>
